@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 from sklearn import datasets
 cmap = ListedColormap(['#FF0000' , '#00FF00' , '#0000FF'])
+from sklearn.metrics import confusion_matrix , ConfusionMatrixDisplay
 
 iris = datasets.load_iris()
 X , y = iris.data , iris.target
@@ -19,7 +20,12 @@ clf=KNN(k=5)
 clf.fit(X_train , y_train)
 predictions = clf.predict(X_test)
 
-print(predictions)
+
 
 acc = np.sum(predictions == y_test) / len(y_test)
 print(acc)
+
+cm = confusion_matrix(y_test , predictions)
+cm_dis = ConfusionMatrixDisplay(cm)
+cm_dis.plot()
+plt.show()
